@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Filters\QueryFilters;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PostResource;
 use App\Post;
@@ -13,11 +14,14 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Filters\QueryFilters  $filters
+     *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request, QueryFilters $filters)
     {
-        return PostResource::collection((Post::paginate(10)));
+        return PostResource::collection((Post::filter($filters)->paginate(10)));
     }
 
     /**
@@ -44,8 +48,14 @@ class PostController extends Controller
         //
     }
 
-    public function userPosts(Request $request)
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Filters\QueryFilters  $filters
+     *
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function userPosts(Request $request, QueryFilters $filters)
     {
-        return $request->user()->posts()->paginate(2);
+        return PostResource::collection($request->user()->posts()->filter($filters)->paginate(10));
     }
 }
