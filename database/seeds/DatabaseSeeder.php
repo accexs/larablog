@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Artisan::call('make:admin');
         $this->call(UserSeeder::class);
         $this->call(PostSeeder::class);
     }

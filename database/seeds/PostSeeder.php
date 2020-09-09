@@ -14,10 +14,10 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::firstOrFail();
-
-        $user->posts()->createMany(
-            factory(Post::class, 5)->make()->toArray()
-        );
+        foreach (User::all() as $user) {
+            $user->posts()->createMany(
+                factory(Post::class, 20)->make()->toArray()
+            );
+        }
     }
 }
