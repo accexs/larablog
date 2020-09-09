@@ -17,6 +17,7 @@ class PostController extends Controller
     public function index()
     {
         //
+        $var = 1;
         return response()->json(Post::paginate(10));
     }
 
@@ -89,5 +90,10 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function userPosts(Request $request)
+    {
+        return $request->user()->posts()->paginate(2);
     }
 }

@@ -24,11 +24,20 @@ import Pagination from "laravel-vue-pagination";
 export default {
     name: "PostsIndex",
     components: {Pagination, Post},
+    props: {
+        endpoint: {
+            required: true,
+            type: String,
+            default: "/api/posts",
+        },
+        immediate: {
+            default: false,
+            type: Boolean,
+        },
+    },
     data() {
         return {
             posts: {},
-            endpoint: "/api/posts",
-            // pagination: {}
         }
     },
     created() {
