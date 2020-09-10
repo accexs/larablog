@@ -10,7 +10,7 @@ import Index from "./Index";
 import ValidationErrors from "./shared/components/ValidationErrors";
 import Vuex from 'vuex';
 import storeDefinition from "./store";
-// import store from "./store/store";
+import moment from "moment";
 
 require('./bootstrap');
 
@@ -25,15 +25,18 @@ Vue.component("v-errors", ValidationErrors);
  *
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
-
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 Vue.prototype.setDocumentTitle = function (title = "Larablog") {
     document.title = title;
 };
+
+Vue.filter("shortDate", value => {
+    const date = moment(value);
+
+    return date.year() === moment().year() ? date.format("MMM Do") : date.format("MMM Do YYYY")
+})
 
 /**
  *
