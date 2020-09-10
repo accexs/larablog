@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Filters\QueryFilters;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Post;
 use Illuminate\Http\Request;
@@ -27,13 +28,17 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\PostRequest  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\PostResource
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $post = Post::make($request->all());
+        $post->user_id = $request->user()->id;
+        $post->save();
+
+        return new PostResource($post);
     }
 
     /**
@@ -56,6 +61,9 @@ class PostController extends Controller
      */
     public function userPosts(Request $request, QueryFilters $filters)
     {
-        return PostResource::collection($request->user()->posts()->filter($filters)->paginate(10));
+        return PostResource::collection($request->user()
+            ->posts()
+            ->filter($filters)
+            ->paginate(10));
     }
 }
