@@ -28,8 +28,8 @@ To import third party posts:
 ```$schedule->command('queue:posts')->everyTwoMinutes();``` so it can process faster.
 - Add this line to the crontab of your OS, be aware of the path to the project:
     ```* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1```
-- Alternatively run ```php artisan schedule:run```
-- Lastly run ```php artisan queue:work``` this will set the deamon to process the queue.
+- Alternatively run ```php artisan schedule:run``` or ```php artisan queue:posts``` directly.
+- Lastly run ```php artisan queue:work``` this will set the daemon to process the queue.
 
 Authentication is using laravel sanctum.
 
