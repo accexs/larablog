@@ -8,4 +8,5 @@ export function logIn() {
 
 export function logOut() {
     localStorage.setItem("isLoggedIn", "false");
+    location.reload();
 }

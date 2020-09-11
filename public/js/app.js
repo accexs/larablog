@@ -79996,6 +79996,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _routeList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routeList */ "./resources/js/routes/routeList.js");
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var _shared_utils_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../shared/utils/auth */ "./resources/js/shared/utils/auth.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -80012,6 +80013,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
+
 var routes = _toConsumableArray(_routeList__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
@@ -80021,11 +80023,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
   routes: routes
 });
 router.beforeEach(function (to, from, next) {
-  var loggedIn = localStorage.getItem('user');
-
   if (to.matched.some(function (record) {
     return record.meta.auth;
-  }) && !loggedIn) {
+  }) && !Object(_shared_utils_auth__WEBPACK_IMPORTED_MODULE_3__["isLoggedIn"])()) {
     next('/login');
     return;
   }
@@ -80168,6 +80168,7 @@ function logIn() {
 }
 function logOut() {
   localStorage.setItem("isLoggedIn", "false");
+  location.reload();
 }
 
 /***/ }),
