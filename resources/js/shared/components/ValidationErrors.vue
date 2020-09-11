@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style scoped>
-/*.form-control.is-invalid ~ div > .invalid-feedback {*/
-/*    display: block;*/
-/*}*/
+.form-control.is-invalid ~ div > .invalid-feedback {
+    display: block;
+}
 </style>

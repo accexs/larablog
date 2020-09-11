@@ -1,6 +1,5 @@
-// import adminRoutes from "./admin"
-import publicRoutes from "./public"
+import routeList from "./routeList"
 
-const routes = [...publicRoutes]
+const routes = [...routeList]
 
 export default routes

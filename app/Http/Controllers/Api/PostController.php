@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Post;
+use HttpResponseException;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -46,11 +47,11 @@ class PostController extends Controller
      *
      * @param  \App\Post  $post
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\PostResource
      */
     public function show(Post $post)
     {
-        //
+        return new PostResource($post);
     }
 
     /**

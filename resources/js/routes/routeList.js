@@ -3,8 +3,9 @@ import NotFound from "../Pages/NotFound";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
 import Dashboard from "../Pages/Blog/Dashboard";
+import PostCreate from "../components/PostCreate";
 
-const routes = [
+const routeList = [
     {
         path: "/",
         component: PostsIndex,
@@ -26,10 +27,15 @@ const routes = [
         name: "dashboard"
     },
     {
+        path: "/post/create",
+        component: PostCreate,
+        name: "post create"
+    },
+    {
         path: "*",
         component: NotFound,
         name: "not found"
     }
 ]
 
-export default routes
+export default routeList

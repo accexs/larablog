@@ -29,11 +29,7 @@ export default {
             required: true,
             type: String,
             default: "/api/posts",
-        },
-        immediate: {
-            default: false,
-            type: Boolean,
-        },
+        }
     },
     data() {
         return {

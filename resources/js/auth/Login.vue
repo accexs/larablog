@@ -6,7 +6,7 @@
                     <label for="email">E-mail</label>
                     <input
                         id="email"
-                        type="text"
+                        type="email"
                         name="email"
                         placeholder="Enter your e-mail"
                         class="form-control"
@@ -34,12 +34,10 @@
                     <input id="remember" type="checkbox" name="remember" class="form-check-input" v-model="remember"/>
                     <label for="remember" class="form-check-label">Remember me</label>
                 </div>
-
-                <button
-                    type="submit"
-                    class="btn btn-primary btn-lg btn-block"
-                    @click.prevent="login"
-                >Log-in
+                <button type="submit"
+                        class="btn btn-primary btn-lg btn-block"
+                        @click.prevent="login">
+                    Log-in
                 </button>
             </form>
 
@@ -85,8 +83,8 @@ export default {
                 await this.$store.dispatch("loadUser");
                 await this.$router.push({name: "index"});
             } catch (error) {
-                console.log(error);
-                this.errors = error.response && error.response.data.errors;
+                console.log(error.response.data);
+                this.errors = error.response.data.errors;
             }
         }
     }
