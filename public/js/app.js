@@ -1981,7 +1981,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Dashboard",
@@ -2023,6 +2022,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2040,8 +2048,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      posts: {}
+      posts: {},
+      sort: ""
     };
+  },
+  watch: {
+    sort: function sort() {
+      this.loadPosts(this.getEndpoint());
+    }
   },
   created: function created() {
     this.loadPosts(this.getEndpoint());
@@ -2058,10 +2072,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getEndpoint: function getEndpoint() {
-      return this.endpoint;
+      var method = "";
+
+      if (this.sort) {
+        method = (this.sort === 'asc' ? '+' : '-') + 'created_at';
+      }
+
+      return "".concat(this.endpoint, "?sort=").concat(method);
     },
     paginate: function paginate(page) {
-      var endpoint = "".concat(this.endpoint, "?page=").concat(page);
+      var endpoint = "".concat(this.endpoint, "&page=").concat(page);
       this.loadPosts(endpoint);
     }
   }
@@ -61542,17 +61562,17 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "row col-12" }, [
       _c(
         "div",
-        { staticClass: "col-md-8" },
+        { staticClass: "col-10" },
         [_c("posts-index", { attrs: { endpoint: "/api/user/posts" } })],
         1
       ),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "col-md-4" },
+        { staticClass: "col-2" },
         [
           _c(
             "router-link",
@@ -61592,14 +61612,57 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "row col-md-8" },
+    { staticClass: "row col-10" },
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "col-sm-12 col-md-12 row mt-2" }, [
+      _c("div", { staticClass: "d-flex" }, [
+        _c("label", { attrs: { for: "sort" } }, [
+          _vm._v("\n            Sort by date\n            "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.sort,
+                  expression: "sort"
+                }
+              ],
+              staticClass: "custom-select ml-auto",
+              attrs: { id: "sort" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.sort = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "" } }, [_vm._v("None")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "asc" } }, [_vm._v("Asc")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "desc" } }, [_vm._v("Desc")])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row col-10 mt-2" }, [
         _c(
           "div",
-          { staticClass: "col-md-12" },
+          { staticClass: "col-12" },
           _vm._l(_vm.posts.data, function(post) {
             return _c("Post", { key: post.id, attrs: { post: post } })
           }),
@@ -61632,10 +61695,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-12 " }, [
-      _c("h3", { staticClass: "pb-4 mb-4 font-italic border-bottom" }, [
-        _vm._v("\n            Posts List\n        ")
-      ])
+    return _c("div", { staticClass: "col-8 d-flex " }, [
+      _c("h3", [_vm._v("Post list")])
     ])
   }
 ]
@@ -79459,14 +79520,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _routes_routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes/routes */ "./resources/js/routes/routes.js");
-/* harmony import */ var _Index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Index */ "./resources/js/Index.vue");
-/* harmony import */ var _shared_components_ValidationErrors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./shared/components/ValidationErrors */ "./resources/js/shared/components/ValidationErrors.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _routes_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routes/router */ "./resources/js/routes/router.js");
+/* harmony import */ var _Index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Index */ "./resources/js/Index.vue");
+/* harmony import */ var _shared_components_ValidationErrors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shared/components/ValidationErrors */ "./resources/js/shared/components/ValidationErrors.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -79480,12 +79540,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_5__["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-errors", _shared_components_ValidationErrors__WEBPACK_IMPORTED_MODULE_4__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_4__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component("v-errors", _shared_components_ValidationErrors__WEBPACK_IMPORTED_MODULE_3__["default"]);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -79502,15 +79560,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.setDocumentTitle = function
 };
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter("shortDate", function (value) {
-  var date = moment__WEBPACK_IMPORTED_MODULE_7___default()(value);
-  return date.year() === moment__WEBPACK_IMPORTED_MODULE_7___default()().year() ? date.format("MMM Do") : date.format("MMM Do YYYY");
+  var date = moment__WEBPACK_IMPORTED_MODULE_6___default()(value);
+  return date.format("MMM Do YYYY");
 });
 /**
  *
  * @type {Vuex.Store}
  */
 
-var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store(_store__WEBPACK_IMPORTED_MODULE_6__["default"]);
+var store = new vuex__WEBPACK_IMPORTED_MODULE_4__["default"].Store(_store__WEBPACK_IMPORTED_MODULE_5__["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -79519,19 +79577,29 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store(_store__WEBPA
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-  router: new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
-    routes: _routes_routes__WEBPACK_IMPORTED_MODULE_2__["default"],
-    mode: 'history'
-  }),
+  router: _routes_router__WEBPACK_IMPORTED_MODULE_1__["default"],
   store: store,
   components: {
-    index: _Index__WEBPACK_IMPORTED_MODULE_3__["default"]
+    index: _Index__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   beforeCreate: function beforeCreate() {
     console.log('store');
     this.$store.dispatch("loadStoredState");
     this.$store.dispatch("loadUser");
     console.log('store loaded');
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.interceptors.response.use(function (response) {
+      return response;
+    }, function (error) {
+      if (error.response.status === 401) {
+        _this.$store.dispatch('logout');
+      }
+
+      return Promise.reject(error);
+    });
   }
 });
 
@@ -79895,11 +79963,17 @@ var routeList = [{
 }, {
   path: "/dashboard",
   component: _Pages_Blog_Dashboard__WEBPACK_IMPORTED_MODULE_4__["default"],
-  name: "dashboard"
+  name: "dashboard",
+  meta: {
+    auth: true
+  }
 }, {
   path: "/post/create",
   component: _components_PostCreate__WEBPACK_IMPORTED_MODULE_5__["default"],
-  name: "post create"
+  name: "post create",
+  meta: {
+    auth: true
+  }
 }, {
   path: "*",
   component: _Pages_NotFound__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -79909,16 +79983,19 @@ var routeList = [{
 
 /***/ }),
 
-/***/ "./resources/js/routes/routes.js":
+/***/ "./resources/js/routes/router.js":
 /*!***************************************!*\
-  !*** ./resources/js/routes/routes.js ***!
+  !*** ./resources/js/routes/router.js ***!
   \***************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _routeList__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./routeList */ "./resources/js/routes/routeList.js");
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _routeList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./routeList */ "./resources/js/routes/routeList.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -79933,9 +80010,30 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 
 
-var routes = _toConsumableArray(_routeList__WEBPACK_IMPORTED_MODULE_0__["default"]);
 
-/* harmony default export */ __webpack_exports__["default"] = (routes);
+
+var routes = _toConsumableArray(_routeList__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_2__["default"]({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes: routes
+});
+router.beforeEach(function (to, from, next) {
+  var loggedIn = localStorage.getItem('user');
+
+  if (to.matched.some(function (record) {
+    return record.meta.auth;
+  }) && !loggedIn) {
+    next('/login');
+    return;
+  }
+
+  next();
+});
+/* harmony default export */ __webpack_exports__["default"] = (router);
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 

@@ -1,12 +1,21 @@
 <template>
-    <div class="row col-md-8">
-        <div class="col-md-12 ">
-            <h3 class="pb-4 mb-4 font-italic border-bottom">
-                Posts List
-            </h3>
+    <div class="row col-10">
+        <div class="col-8 d-flex ">
+            <h3>Post list</h3>
         </div>
-        <div class="col-sm-12 col-md-12 row mt-2">
-            <div class="col-md-12">
+        <div class="d-flex">
+            <label for="sort">
+                Sort by date
+                <select v-model="sort" id="sort" class="custom-select ml-auto">
+                    <option value="">None</option>
+                    <option value="asc">Asc</option>
+                    <option value="desc">Desc</option>
+                </select></label>
+
+        </div>
+
+        <div class="row col-10 mt-2">
+            <div class="col-12">
                 <Post v-for="post in posts.data" :key="post.id" :post="post"/>
             </div>
         </div>
@@ -34,6 +43,12 @@ export default {
     data() {
         return {
             posts: {},
+            sort: "",
+        }
+    },
+    watch: {
+        sort: function () {
+            this.loadPosts(this.getEndpoint());
         }
     },
     created() {
@@ -50,10 +65,14 @@ export default {
 
         },
         getEndpoint() {
-            return this.endpoint;
+            let method = "";
+            if (this.sort) {
+                method = ((this.sort === 'asc') ? '+' : '-') + 'created_at';
+            }
+            return `${this.endpoint}?sort=${method}`;
         },
         paginate(page) {
-            let endpoint = `${this.endpoint}?page=${page}`;
+            let endpoint = `${this.endpoint}&page=${page}`;
             this.loadPosts(endpoint);
         }
     }

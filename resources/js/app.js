@@ -4,8 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import routes from './routes/routes';
+import router from './routes/router';
 import Index from "./Index";
 import ValidationErrors from "./shared/components/ValidationErrors";
 import Vuex from 'vuex';
@@ -14,7 +13,6 @@ import moment from "moment";
 
 require('./bootstrap');
 
-Vue.use(VueRouter);
 Vue.use(Vuex);
 Vue.component("v-errors", ValidationErrors);
 
@@ -35,7 +33,7 @@ Vue.prototype.setDocumentTitle = function (title = "Larablog") {
 Vue.filter("shortDate", value => {
     const date = moment(value);
 
-    return date.year() === moment().year() ? date.format("MMM Do") : date.format("MMM Do YYYY")
+    return date.format("MMM Do YYYY")
 })
 
 /**
@@ -52,7 +50,7 @@ const store = new Vuex.Store(storeDefinition);
 
 const app = new Vue({
     el: '#app',
-    router: new VueRouter({routes, mode: 'history'}),
+    router,
     store,
     components: {
         index: Index
@@ -63,4 +61,16 @@ const app = new Vue({
         this.$store.dispatch("loadUser");
         console.log('store loaded');
     },
+    created () {
+        axios.interceptors.response.use(
+            response => response,
+            error => {
+                if (error.response.status === 401) {
+                    this.$store.dispatch('logout')
+                }
+                return Promise.reject(error)
+            }
+        )
+    },
+
 });

@@ -24,12 +24,20 @@ const routeList = [
     {
         path: "/dashboard",
         component: Dashboard,
-        name: "dashboard"
+        name: "dashboard",
+        meta: {
+            auth: true
+        },
+
     },
     {
         path: "/post/create",
         component: PostCreate,
-        name: "post create"
+        name: "post create",
+        meta: {
+            auth: true
+        },
+
     },
     {
         path: "*",
