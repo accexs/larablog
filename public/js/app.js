@@ -2081,7 +2081,7 @@ __webpack_require__.r(__webpack_exports__);
       return "".concat(this.endpoint, "?sort=").concat(method);
     },
     paginate: function paginate(page) {
-      var endpoint = "".concat(this.endpoint, "&page=").concat(page);
+      var endpoint = "".concat(this.getEndpoint(), "&page=").concat(page);
       this.loadPosts(endpoint);
     }
   }

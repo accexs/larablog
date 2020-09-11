@@ -8,12 +8,14 @@ Follow laravel basic install to get the site up. This is an SPA so it needs comp
 
 ### Set .env variables
 
+For example:
+
 ```
 DB_CONNECTION=sqlite
 
 QUEUE_CONNECTION=database
 
-SANCTUM_STATEFUL_DOMAINS=larablog.test
+SANCTUM_STATEFUL_DOMAINS=mysite.test
 ```
 
 Run migrations ```php artisan migrate```

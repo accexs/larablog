@@ -72,7 +72,7 @@ export default {
             return `${this.endpoint}?sort=${method}`;
         },
         paginate(page) {
-            let endpoint = `${this.endpoint}&page=${page}`;
+            let endpoint = `${this.getEndpoint()}&page=${page}`;
             this.loadPosts(endpoint);
         }
     }
