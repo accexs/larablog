@@ -39,6 +39,7 @@ class QueuePosts extends Command
      */
     public function handle()
     {
-        return ImportPosts::dispatch();
+        ImportPosts::dispatch();
+        $this->info('Impost posts dispatched');
     }
 }
