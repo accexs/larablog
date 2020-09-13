@@ -1,17 +1,18 @@
 <template>
     <div class="row col-10">
-        <div class="col-8 d-flex ">
+        <div class="col-8 d-flex">
             <h3>Post list</h3>
         </div>
-        <div class="d-flex">
+
+        <div class="d-flex ml-auto">
             <label for="sort">
                 Sort by date
-                <select v-model="sort" id="sort" class="custom-select ml-auto">
+                <select v-model="sort" id="sort" class="custom-select">
                     <option value="">None</option>
                     <option value="asc">Asc</option>
                     <option value="desc">Desc</option>
-                </select></label>
-
+                </select>
+            </label>
         </div>
 
         <div class="row col-10 mt-2">
@@ -19,10 +20,13 @@
                 <Post v-for="post in posts.data" :key="post.id" :post="post"/>
             </div>
         </div>
-        <pagination :data="posts" @pagination-change-page="paginate">
-            <span slot="prev-nav">&lt; Previous</span>
-            <span slot="next-nav">Next &gt;</span>
-        </pagination>
+
+        <div class="row col-12">
+            <pagination :data="posts" @pagination-change-page="paginate">
+                <span slot="prev-nav">&lt; Previous</span>
+                <span slot="next-nav">Next &gt;</span>
+            </pagination>
+        </div>
     </div>
 </template>
 

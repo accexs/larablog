@@ -4,12 +4,18 @@ import Login from "../auth/Login";
 import Register from "../auth/Register";
 import Dashboard from "../Pages/Blog/Dashboard";
 import PostCreate from "../components/PostCreate";
+import PostShow from "../components/PostShow";
 
 const routeList = [
     {
         path: "/",
         component: PostsIndex,
         name: "index"
+    },
+    {
+        path: "/post/:id",
+        component: PostShow,
+        name: "posts.show"
     },
     {
         path: "/login",
