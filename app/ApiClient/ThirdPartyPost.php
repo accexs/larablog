@@ -8,6 +8,7 @@ use App\Post;
 use App\User;
 use HttpResponseException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class ThirdPartyPost
 {
@@ -52,6 +53,7 @@ class ThirdPartyPost
             unset($post['publication_date']);
             $importedPosts[] = $post;
         }
+        Log::info('importing '. count($importedPosts). ' posts');
         return Post::insert($importedPosts);
     }
 
